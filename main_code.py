@@ -63,7 +63,7 @@ def process_image(input_path, output_path):
                     break
             
             # Vérification si la classe correspond à 'unlabeled' pour mettre à jour la couleur
-            if pixel_class is not None and pixel_class.name == 'unlabeled':
+            if pixel_class is not None and pixel_class.name == 'car':
                 pixels[i, j] = (1, 1, 1, a)  # Changement de couleur en blanc (255, 255, 255)
             else:
                 pixels[i, j] = (0, 0, 0, a)  # Changement de couleur en noir (0, 0, 0)
@@ -99,7 +99,7 @@ for filename in os.listdir(input_folder):
 
         for h in range(height):
             for w in range(width):
-                if (image[h, w] == [206, 140, 26]).any() and (ims[h, w] == [1, 1, 1]).any():
+                if (image[h, w] == [224, 172, 51]).any() and (ims[h, w] == [1, 1, 1]).any():
                     image[h, w] = [26, 140, 206]
                     print(h, w)
 
