@@ -104,7 +104,7 @@ for filename in os.listdir(input_folder):
                     print(h, w)
 
         # Sauvegarder l'image modifiée
-        modified_output_path = os.path.join(output_folder, 'modified_' + filename)
+        modified_output_path = os.path.join(input_folder, filename)
         cv2.imwrite(modified_output_path, image)
         #cv2.imwrite("/Users/maxime.pariente/U2IS/microdatabase/modified_image.png", image)
 
