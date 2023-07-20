@@ -66,7 +66,7 @@ def process_image(input_path, output_path):
             # Recherche de la classe correspondante à la couleur du pixel
             pixel_class = None
             for class_obj in classes:
-                if class_obj.train_id == (r, g, b):
+                if class_obj.grey == (r, g, b):
                     pixel_class = class_obj
                     break
             
