@@ -46,7 +46,7 @@ classes = [
     INFRA10Class('train',                16, 'vehicle', 7, True, False, (97, 232, 187), (16, 16, 16)),
     INFRA10Class('motorcycle',           17, 'vehicle', 7, True, False, (239, 107, 197), (17, 17, 17)),
     INFRA10Class('bicycle',              18, 'vehicle', 7, True, False, (149, 15, 252), (18, 18, 18)),
-    INFRA10Class('unlabeled',            19, 'void', 0, False, True, (206, 140, 26), (255, 255, 255)),
+    INFRA10Class('unlabeled',            255, 'void', 0, False, True, (206, 140, 26), (19, 19, 19)),
 ]
 
 def process_image(input_path, output_path):
