@@ -1,6 +1,14 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
+Created on Thu Jul 20 15:48:19 2023
+
+@author: maxime.pariente
+"""
+
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
 Created on Mon Jul 17 11:36:24 2023
 
 @author: maxime.pariente
@@ -38,7 +46,7 @@ classes = [
     INFRA10Class('train',                16, 'vehicle', 7, True, False, (97, 232, 187), (16, 16, 16)),
     INFRA10Class('motorcycle',           17, 'vehicle', 7, True, False, (239, 107, 197), (17, 17, 17)),
     INFRA10Class('bicycle',              18, 'vehicle', 7, True, False, (149, 15, 252), (18, 18, 18)),
-    INFRA10Class('unlabeled',            255, 'void', 0, False, True, (206, 140, 26), (255, 255, 255)),
+    INFRA10Class('unlabeled',            19, 'void', 0, False, True, (206, 140, 26), (255, 255, 255)),
 ]
 
 def process_image(input_path, output_path):
@@ -58,7 +66,7 @@ def process_image(input_path, output_path):
             # Recherche de la classe correspondante à la couleur du pixel
             pixel_class = None
             for class_obj in classes:
-                if class_obj.color == (r, g, b):
+                if class_obj.train_id == (r, g, b):
                     pixel_class = class_obj
                     break
             
@@ -73,13 +81,13 @@ def process_image(input_path, output_path):
 
 
 # Dossier contenant les fichiers d'entrée
-input_folder = '/home/poc2014/dataset/temp/INFRA10/semantic_segmentation_truth/val/Massy/'
+input_folder = '/home/poc2014/errorMassy/Massy/'
 # Dossier de sortie pour les images modifiées
-output_folder = '/home/poc2014/correctmassy/modified_massy/'
+output_folder = '/home/poc2014/errorMassy/Massy/'
 
 # Parcourir les fichiers .png dans le dossier d'entrée
 for filename in os.listdir(input_folder):
-    if filename.endswith('.png') and not filename.endswith("labelIds.png"):
+    if filename.endswith('labelIds.png'):
         # Chemin complet du fichier d'entrée
         input_path = os.path.join(input_folder, filename)
         # Chemin complet du fichier de sortie
@@ -93,24 +101,17 @@ for filename in os.listdir(input_folder):
         mask = cv2.imread(output_path, cv2.IMREAD_GRAYSCALE)
 
         a = np.array(mask, bool)
-        ims = morphology.remove_small_objects(a, 725760)
+        ims = morphology.remove_small_objects(a, 725760) #725760
 
         height, width = ims.shape
 
         for h in range(height):
             for w in range(width):
-                if (image[h, w] == [224, 172, 51]).any() and (ims[h, w] == [1, 1, 1]).any():
-                    image[h, w] = [26, 140, 206]
+                if (image[h, w] == [13, 13, 13]).any() and (ims[h, w] == [1, 1, 1]).any():
+                    image[h, w] = [19, 19, 19]
                     print(h, w)
 
         # Sauvegarder l'image modifiée
         modified_output_path = os.path.join(input_folder, filename)
         cv2.imwrite(modified_output_path, image)
         #cv2.imwrite("/Users/maxime.pariente/U2IS/microdatabase/modified_image.png", image)
-
-        
-        
-        
-        
-        
-        
