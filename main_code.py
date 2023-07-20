@@ -81,9 +81,9 @@ def process_image(input_path, output_path):
 
 
 # Dossier contenant les fichiers d'entrée
-input_folder = '/home/poc2014/errorMassy/Massy/'
+input_folder = '/home/poc2014/dataset/temp/INFRA10/semantic_segmentation_truth/val/Massy/'
 # Dossier de sortie pour les images modifiées
-output_folder = '/home/poc2014/errorMassy/Massy/'
+output_folder = '/home/poc2014/errorMassy'
 
 # Parcourir les fichiers .png dans le dossier d'entrée
 for filename in os.listdir(input_folder):
