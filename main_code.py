@@ -62,7 +62,7 @@ def process_image(input_path, output_path):
     for i in range(image.size[0]):
         for j in range(image.size[1]):
             r, g, b, a = pixels[i, j]
-           
+            
             # Recherche de la classe correspondante à la couleur du pixel
             pixel_class = None
             for class_obj in classes:
@@ -70,22 +70,20 @@ def process_image(input_path, output_path):
                     pixel_class = class_obj
                     break
             
-             # Vérification si la classe correspond à 'unlabeled' pour mettre à jour la couleur
+            # Vérification si la classe correspond à 'unlabeled' pour mettre à jour la couleur
             if pixel_class is not None and pixel_class.name == 'car':
                 pixels[i, j] = (1, 1, 1, a)  # Changement de couleur en blanc (255, 255, 255)
             else:
                 pixels[i, j] = (0, 0, 0, a)  # Changement de couleur en noir (0, 0, 0)
     
-
-
     # Enregistrement de l'image modifiée
     image.save(output_path, 'PNG')
 
 
 # Dossier contenant les fichiers d'entrée
-input_folder = '/home/poc2014/dataset/temp/INFRA10/semantic_segmentation_truth/val/Massy'
+input_folder = '/home/poc2014/dataset/temp/INFRA10/semantic_segmentation_truth/val/Massy/'
 # Dossier de sortie pour les images modifiées
-output_folder = '/home/poc2014/errorMassy'
+output_folder = '/home/poc2014/correctmassy'
 
 # Parcourir les fichiers .png dans le dossier d'entrée
 for filename in os.listdir(input_folder):
@@ -118,5 +116,4 @@ for filename in os.listdir(input_folder):
         cv2.imwrite(modified_output_path, image)
         #cv2.imwrite("/Users/maxime.pariente/U2IS/microdatabase/modified_image.png", image)
 
-        
   
