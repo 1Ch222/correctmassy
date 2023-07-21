@@ -48,32 +48,33 @@ classes = [
     INFRA10Class('bicycle',              18, 'vehicle', 7, True, False, (149, 15, 252), (18, 18, 18)),
     INFRA10Class('unlabeled',            19, 'void', 0, False, True, (206, 140, 26), (255, 255, 255)),
 ]
- def process_image(input_path, output_path):
-     # Chargement de l'image d'entrée
-     image = Image.open(input_path)
+
+def process_image(input_path, output_path):
+    # Chargement de l'image d'entrée
+    image = Image.open(input_path)
     
-     # Conversion de l'image en mode RGBA si elle ne l'est pas déjà
-     if image.mode != 'RGBA':
-         image = image.convert('RGBA')
+    # Conversion de l'image en mode RGBA si elle ne l'est pas déjà
+    if image.mode != 'RGBA':
+        image = image.convert('RGBA')
     
-     # Parcours de chaque pixel de l'image
-     pixels = image.load()
-     for i in range(image.size[0]):
-         for j in range(image.size[1]):
-             r, g, b, a = pixels[i, j]
-            
-             # Recherche de la classe correspondante à la couleur du pixel
-             pixel_class = None
-             for class_obj in classes:
-                 if class_obj.train_id == (r, g, b):
-                     pixel_class = class_obj
-                     break
+    # Parcours de chaque pixel de l'image
+    pixels = image.load()
+    for i in range(image.size[0]):
+        for j in range(image.size[1]):
+            r, g, b, a = pixels[i, j]
+           
+            # Recherche de la classe correspondante à la couleur du pixel
+            pixel_class = None
+            for class_obj in classes:
+                if class_obj.train_id == (r, g, b):
+                    pixel_class = class_obj
+                    break
             
              # Vérification si la classe correspond à 'unlabeled' pour mettre à jour la couleur
-             if pixel_class is not None and pixel_class.name == 'car':
-                 pixels[i, j] = (1, 1, 1, a)  # Changement de couleur en blanc (255, 255, 255)
-             else:
-                 pixels[i, j] = (0, 0, 0, a)  # Changement de couleur en noir (0, 0, 0)
+            if pixel_class is not None and pixel_class.name == 'car':
+                pixels[i, j] = (1, 1, 1, a)  # Changement de couleur en blanc (255, 255, 255)
+            else:
+                pixels[i, j] = (0, 0, 0, a)  # Changement de couleur en noir (0, 0, 0)
     
 
 
