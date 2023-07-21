@@ -31,5 +31,5 @@ def process_images_in_folder(folder_path):
             print(f"Image '{filename}' traitée et remplacée par l'image en niveaux de gris.")
 
 # Exemple d'utilisation
-input_folder_path = "chemin/vers/le/dossier"
+input_folder_path = "/home/poc2014/dataset/temp/INFRA10/semantic_segmentation_truth/val/Massy"
 process_images_in_folder(input_folder_path)
