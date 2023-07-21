@@ -48,55 +48,37 @@ classes = [
     INFRA10Class('bicycle',              18, 'vehicle', 7, True, False, (149, 15, 252), (18, 18, 18)),
     INFRA10Class('unlabeled',            19, 'void', 0, False, True, (206, 140, 26), (255, 255, 255)),
 ]
-
-# def process_image(input_path, output_path):
-#     # Chargement de l'image d'entrée
-#     image = Image.open(input_path)
+ def process_image(input_path, output_path):
+     # Chargement de l'image d'entrée
+     image = Image.open(input_path)
     
-#     # Conversion de l'image en mode RGBA si elle ne l'est pas déjà
-#     if image.mode != 'RGBA':
-#         image = image.convert('RGBA')
+     # Conversion de l'image en mode RGBA si elle ne l'est pas déjà
+     if image.mode != 'RGBA':
+         image = image.convert('RGBA')
     
-#     # Parcours de chaque pixel de l'image
-#     pixels = image.load()
-#     for i in range(image.size[0]):
-#         for j in range(image.size[1]):
-#             r, g, b, a = pixels[i, j]
+     # Parcours de chaque pixel de l'image
+     pixels = image.load()
+     for i in range(image.size[0]):
+         for j in range(image.size[1]):
+             r, g, b, a = pixels[i, j]
             
-#             # Recherche de la classe correspondante à la couleur du pixel
-#             pixel_class = None
-#             for class_obj in classes:
-#                 if class_obj.train_id == (r, g, b):
-#                     pixel_class = class_obj
-#                     break
+             # Recherche de la classe correspondante à la couleur du pixel
+             pixel_class = None
+             for class_obj in classes:
+                 if class_obj.train_id == (r, g, b):
+                     pixel_class = class_obj
+                     break
             
-#             # Vérification si la classe correspond à 'unlabeled' pour mettre à jour la couleur
-#             if pixel_class is not None and pixel_class.name == 'car':
-#                 pixels[i, j] = (1, 1, 1, a)  # Changement de couleur en blanc (255, 255, 255)
-#             else:
-#                 pixels[i, j] = (0, 0, 0, a)  # Changement de couleur en noir (0, 0, 0)
+             # Vérification si la classe correspond à 'unlabeled' pour mettre à jour la couleur
+             if pixel_class is not None and pixel_class.name == 'car':
+                 pixels[i, j] = (1, 1, 1, a)  # Changement de couleur en blanc (255, 255, 255)
+             else:
+                 pixels[i, j] = (0, 0, 0, a)  # Changement de couleur en noir (0, 0, 0)
     
-def process_image(input_path, output_path):
-    # Chargement de l'image d'entrée
-    image = Image.open(input_path)
 
-    # Conversion de l'image en mode RGB si elle ne l'est pas déjà
-    if image.mode != 'RGB':
-        image = image.convert('RGB')
-
-    # Convertir l'image en niveaux de gris (greyscale)
-    grey_image = image.convert('L')
-
-    # Parcours de chaque pixel de l'image en niveaux de gris
-    pixels = grey_image.load()
-    for i in range(grey_image.size[0]):
-        for j in range(grey_image.size[1]):
-            # Vérifier si le pixel correspond à la couleur de la classe 'car'
-            if pixels[i, j] == 13:  # La valeur du pixel pour le gris est égale aux canaux R, G et B
-                pixels[i, j] = 19  # Modifier la valeur du pixel en gris pour la classe 'unlabeled'
 
     # Enregistrement de l'image modifiée
-    grey_image.save(output_path, 'PNG')
+    image.save(output_path, 'PNG')
 
 
 # Dossier contenant les fichiers d'entrée
@@ -116,7 +98,7 @@ for filename in os.listdir(input_folder):
         process_image(input_path, output_path)
 
         # Charger l'image modifiée
-        image = cv2.imread(input_path, cv2.IMREAD_GRAYSCALE)
+        image = cv2.imread(input_path, cv2.IMREAD_COLOR)
         mask = cv2.imread(output_path, cv2.IMREAD_GRAYSCALE)
 
         a = np.array(mask, bool)
