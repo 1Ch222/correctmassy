@@ -25,9 +25,6 @@ def process_images_in_folder(folder_path):
             # Convertir l'image en niveaux de gris et la sauvegarder
             convert_to_grayscale(input_path, output_path)
 
-            # Supprimer l'image d'origine
-            os.remove(input_path)
-
             print(f"Image '{filename}' traitée et remplacée par l'image en niveaux de gris.")
 
 # Exemple d'utilisation
